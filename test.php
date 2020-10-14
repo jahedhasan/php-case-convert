@@ -1,7 +1,7 @@
 <?php 
+use Polodev\ConvertCase\Convert;
 require __dir__ . '/index.php';
 
-use Polodev\ConvertCase\Convert;
 
 // title_case
 $text = "hello world from dHaka, Bangladesh.";

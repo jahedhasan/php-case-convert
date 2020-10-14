@@ -1,5 +1,3 @@
-<?php 
-
 `Polodev\ConvertCase\Convert` class having some utility method to change case. Following case change is available  
 
 * title_case
@@ -17,9 +15,8 @@
 
 ~~~php
 <?php 
-require __dir__ . '/index.php';
-
 use Polodev\ConvertCase\Convert;
+require __dir__ . '/index.php';
 
 // title_case
 $text = "hello world from dHaka, Bangladesh.";
