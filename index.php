@@ -14,9 +14,15 @@ class Convert {
   {
     $this->text = preg_replace('/\p{P}/', '', $this->text);
   }
+  public function add_hypen_to_camel_case() {
+    $pattern = '/(?<=\d)(?=[A-Za-z])|(?<=[A-Za-z])(?=\d)|(?<=[a-z])(?=[A-Z])/';
+    $replace = "_";
+    $this->text = preg_replace($pattern, $replace, $this->text); 
+  }
   public function generate_parts()
   {
-    $this->parts = preg_split('/ +/', $this->text);
+    $this->add_hypen_to_camel_case();
+    $this->parts = preg_split('/( |-|_)+/', $this->text);
   }
   public function output()
   {
@@ -110,9 +116,15 @@ class Convert {
   {
     return preg_replace('/\p{P}/', '', $text);
   }
+  static function add_hypen_to_camel_case_static($text) {
+    $pattern = '/(?<=\d)(?=[A-Za-z])|(?<=[A-Za-z])(?=\d)|(?<=[a-z])(?=[A-Z])/';
+    $replace = "_";
+    return preg_replace($pattern, $replace, $text); 
+  }
   static function generate_parts_static($text)
   {
-    return preg_split('/ +/', $text);
+    $hypen_text = self::add_hypen_to_camel_case_static($text);
+    return preg_split('/( |-|_)+/', $hypen_text);
   }
   static function process_static($text)
   {
@@ -194,8 +206,4 @@ class Convert {
   }
 
 }
-
-
-
-
 

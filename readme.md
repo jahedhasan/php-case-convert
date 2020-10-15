@@ -59,7 +59,6 @@ echo "</br>";
 $convert = new convert( $text );
 echo $convert->dot_case()->output(); // hello.world.from.dhaka.bangladesh
 echo "</br>";
-
 // dash_case
 $convert = new convert( $text );
 echo $convert->dash_case()->output(); // hello-world-from-dhaka-bangladesh
