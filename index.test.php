@@ -84,3 +84,30 @@ test_separate_words('--');
 test_separate_words('&&');
 test_separate_words('????');
 
+echo "///////////////////////////////////////////////////////////////////////////";
+$text = "hello world from dHaka, Bangladesh.";
+echo Convert::to_title_case($text); // Hello World From Dhaka Bangladesh
+echo "<br>";
+echo Convert::to_lower_case($text); // hello world from dhaka bangladesh
+echo "<br>";
+echo Convert::to_upper_case($text); // HELLO WORLD FROM DHAKA BANGLADESH
+echo "<br>";
+echo Convert::to_snake_case($text); // hello_world_from_dhaka_bangladesh
+echo "<br>";
+echo Convert::to_screaming_snake_case($text); // HELLO_WORLD_FROM_DHAKA_BANGLADESH
+echo "<br>";
+echo Convert::to_camel_case($text); // helloWorldFromDhakaBangladesh
+echo "<br>";
+echo Convert::to_pascal_case($text); // HelloWorldFromDhakaBangladesh
+echo "<br>";
+echo Convert::to_separate_words($text, "__&&__"); // hello__&&__world__&&__from__&&__dhaka__&&__bangladesh
+echo "<br>";
+echo Convert::to_dot_case($text); // hello.world.from.dhaka.bangladesh
+echo "<br>";
+echo Convert::to_dash_case($text); // hello-world-from-dhaka-bangladesh
+echo "<br>";
+echo Convert::to_separate_with_forward_slashes($text); // hello/world/from/dhaka/bangladesh
+echo "<br>";
+echo Convert::to_separate_with_back_slashes($text); // hello\world\from\dhaka\bangladesh
+echo "<br>";
+
