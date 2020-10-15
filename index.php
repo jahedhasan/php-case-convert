@@ -7,12 +7,11 @@ class Convert {
   public function __construct($text)
   {
     $this->text = $text;
-    $this->remove_punctuation();
     $this->generate_parts();
   }
-  public function remove_punctuation()
+  public function remove_punctuation($text)
   {
-    $this->text = preg_replace('/\p{P}/', '', $this->text);
+    return preg_replace('/\p{P}/', '', $text);
   }
   public function add_hypen_to_camel_case() {
     $pattern = '/(?<=\d)(?=[A-Za-z])|(?<=[A-Za-z])(?=\d)|(?<=[a-z])(?=[A-Z])/';
@@ -22,7 +21,10 @@ class Convert {
   public function generate_parts()
   {
     $this->add_hypen_to_camel_case();
-    $this->parts = preg_split('/( |-|_)+/', $this->text);
+    $parts = preg_split('/[-\s:.-]/', $this->text);
+    $this->parts = array_map(function ($each)  {
+      return $this->remove_punctuation($each);
+    }, $parts);
   }
   public function output()
   {
@@ -124,17 +126,12 @@ class Convert {
   static function generate_parts_static($text)
   {
     $hypen_text = self::add_hypen_to_camel_case_static($text);
-    return preg_split('/( |-|_)+/', $hypen_text);
+    return preg_split('/[\s.,_-]/', $hypen_text);
   }
-  static function process_static($text)
-  {
-    return self::generate_parts_static(
-      self::remove_punctuation_static($text)
-    );
-  }
+  
   static function to_title_case($text)
   {
-    $parts = self::process_static($text);
+    $parts = self::generate_parts_static($text);
     $title_case_parts = array_map(function ($each) {
       return ucfirst( strtolower( $each ) );
     }, $parts);
@@ -142,31 +139,31 @@ class Convert {
   }
   static function to_lower_case($text)
   {
-    $parts = self::process_static($text);
+    $parts = self::generate_parts_static($text);
     $parts_text = implode(' ', $parts);
     return strtolower($parts_text);
   }
   static function to_upper_case($text)
   {
-    $parts = self::process_static($text);
+    $parts = self::generate_parts_static($text);
     $parts_text = implode(' ', $parts);
     return strtoupper($parts_text);
   }
   static function to_snake_case($text)
   {
-    $parts = self::process_static($text);
+    $parts = self::generate_parts_static($text);
     $snake_case = implode('_', $parts);
     return strtolower( $snake_case );
   }
   static function to_screaming_snake_case($text)
   {
-    $parts = self::process_static($text);
+    $parts = self::generate_parts_static($text);
     $snake_case = implode('_', $parts);
     return strtoupper($snake_case);
   }
   static function to_camel_case($text)
   {
-    $parts = self::process_static($text);
+    $parts = self::generate_parts_static($text);
     $case_parts = array_map(function ($each) {
       return ucfirst( strtolower( $each ) );
     }, $parts);
@@ -174,7 +171,7 @@ class Convert {
   }
   static function to_pascal_case($text)
   {
-    $parts = self::process_static($text);
+    $parts = self::generate_parts_static($text);
     $case_parts = array_map(function ($each) {
       return ucfirst( strtolower( $each ) );
     }, $parts);
@@ -182,7 +179,7 @@ class Convert {
   }
   static function to_separate_words($text, $glue)
   {
-    $parts = self::process_static($text);
+    $parts = self::generate_parts_static($text);
     $separate_parts = array_map(function ($each) {
       return strtolower( $each );
     }, $parts);
@@ -207,3 +204,15 @@ class Convert {
 
 }
 
+$text = "hello world from dHaka, this_is_snake_case this-is-dash-case this-is- Bangladesh.";
+
+var_dump(
+  Convert::add_hypen_to_camel_case_static($text)
+);
+var_dump(
+  Convert::generate_parts_static($text)
+);
+
+var_dump(
+  Convert::to_title_case($text)
+);

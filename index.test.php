@@ -85,7 +85,7 @@ test_separate_words('&&');
 test_separate_words('????');
 
 echo "///////////////////////////////////////////////////////////////////////////";
-$text = "hello world from dHaka, Bangladesh.";
+$text = "hello world from dHaka, this_is_snake_case this-is-dash-case this-is- Bangladesh.";
 echo Convert::to_title_case($text); // Hello World From Dhaka Bangladesh
 echo "<br>";
 echo Convert::to_lower_case($text); // hello world from dhaka bangladesh
